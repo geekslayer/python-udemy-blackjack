@@ -6,9 +6,14 @@ class Card():
     """
     def __init__(self, suit, value, is_face_card, visible_value):
         self.suit = suit
-        self.value = value
+        self.actual_value = value
         self.face = is_face_card
         self.visible_value = visible_value
+        
+        if self.face:
+            self.value = 10
+        else:
+            self.value = self.actual_value
 
     def get_card_suit(self):
         return self.suit

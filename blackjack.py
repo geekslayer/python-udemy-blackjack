@@ -1,22 +1,51 @@
-# from game.deck import Deck, Card
-from game.player import Player
+from game.player import Player, Person
 from game.dealer import Dealer
 
 ######################
-# new_deck = Deck()
 
-new_player = Player('Etienne')
+done = False
 
-new_dealer = Dealer('John')
+player = Player(input("Please enter your name: "))
 
-new_dealer.shuffle()
+dealer = Dealer('John')
+dealer.shuffle()
 
 ######################
-print(new_player)
-print(new_dealer)
-print(new_dealer.deck)
 
-new_player.get_hand(new_dealer.give_card())
-new_player.get_hand(new_dealer.give_card())
+print(player)
+print(dealer)
 
-new_player.show_hand()
+print("Let's play blackjack!!!!")
+
+player.get_hand(dealer.give_card())
+player.get_hand(dealer.give_card())
+
+print(player.show_hand())
+
+dealer.get_hand(dealer.give_card())
+dealer.get_hand(dealer.give_card())
+
+print(dealer.show_first_hand())
+
+print(player.hand_total_value())
+
+if player.hand_total_value() == 21:
+    print("Blackjack!!!!!")
+
+while not done:
+    if input("Hit or stay? ").upper() in ("HIT","H") :
+        player.get_hand(dealer.give_card())
+        print(player.show_hand())
+
+        if player.hand_total_value() > 21:
+            print("Busted! you lose this hand!")
+            done = True
+    else:
+        if dealer.hand_total_value() >= 17:
+            print(dealer.show_hand())
+            done = True
+        else:
+            dealer.get_hand(dealer.give_card())
+            continue
+
+    done = True
