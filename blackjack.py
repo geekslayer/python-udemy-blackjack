@@ -3,7 +3,11 @@ from game.dealer import Dealer
 
 ######################
 
-done = False
+game_done = player_done = dealer_done = False
+
+__MIN_STAY_FOR_DEALER = 17
+__MAX_FOR_BUST = 21
+__BLACKJACK = 21
 
 player = Player(input("Please enter your name: "))
 
@@ -32,20 +36,31 @@ print(player.hand_total_value())
 if player.hand_total_value() == 21:
     print("Blackjack!!!!!")
 
-while not done:
+while not game_done:
+
+    ### While loop for player's turn
+    while not player_done:
+        print("player's turn")
+        player_done = True
+
+    ### While loop for dealer's turn
+    while not dealer_done:
+        print("dealer's turn")
+        dealer_done = True
+
     if input("Hit or stay? ").upper() in ("HIT", "H"):
         player.get_hand(dealer.give_card())
         print(player.show_hand())
 
-        if player.hand_total_value() > 21:
+        if player.hand_total_value() > __MAX_FOR_BUST:
             print("Busted! you lose this hand!")
-            done = True
+            game_done = True
     else:
-        if dealer.hand_total_value() >= 17:
+        if dealer.hand_total_value() >= __MIN_STAY_FOR_DEALER:
             print(dealer.show_hand())
-            done = True
+            game_done = True
         else:
             dealer.get_hand(dealer.give_card())
             continue
 
-    done = True
+    game_done = True
