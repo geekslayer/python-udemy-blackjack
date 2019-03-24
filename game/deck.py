@@ -1,42 +1,39 @@
-from Card import Card, Suit
+from random import shuffle
+
+from game.card import Card, Suit
 
 class Deck():
+    __amount_of_cards_of_one_suit = 13
 
     def __init__(self):
         self.full_deck = []
 
-        for s in Suit:
-            for i in range(1,14):
-                self.full_deck.append(Card(s,i,i>=10,self.__get_card_value(i)))
+        for card_suit in Suit:
+            for i in range(1, Deck.__amount_of_cards_of_one_suit+1):
+                self.full_deck.append(Card(card_suit, i, i >= 10, self.__get_card_value(i)))
 
     def shuffle(self):
-        pass
+        shuffle(self.full_deck)
 
-    def give_card(self):
-        pass
+    @classmethod
+    def __get_card_value(cls, card_number: int):
+        if card_number in (2, 3, 4, 5, 6, 7, 8, 9, 10):
+            return str(card_number)
 
-    def pay_player(self):
-        pass
-
-    def collect_from_player(self):
-        pass
-
-    def hand(self):
-        pass
-
-    def __get_card_value(self,card_number:int):
         if card_number == 1:
             return "A"
-        elif card_number == 11:
+
+        if card_number == 11:
             return "J"
-        elif card_number == 12:
+
+        if card_number == 12:
             return "Q"
-        elif card_number == 13:
+
+        if card_number == 13:
             return "K"
-        elif card_number in (2,3,4,5,6,7,8,9,10):
-            return str(card_number)
-        else:
-            return ""
+
+        return None
 
     def __str__(self):
-        return [x for x in self.full_deck]
+        return f"This deck has {len(self.full_deck)} cards which here they are: \n" + \
+               f"{[x.visible_value for x in self.full_deck]}"
