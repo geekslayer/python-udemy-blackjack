@@ -33,7 +33,7 @@ if player.hand_total_value() == 21:
     print("Blackjack!!!!!")
 
 while not done:
-    if input("Hit or stay? ").upper() in ("HIT","H") :
+    if input("Hit or stay? ").upper() in ("HIT", "H"):
         player.get_hand(dealer.give_card())
         print(player.show_hand())
 
