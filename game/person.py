@@ -1,3 +1,4 @@
+import game.common
 
 class Person():
 
@@ -12,3 +13,8 @@ class Person():
     
     def hand_total_value(self):
         return sum([x.value for x in self.hand])
+
+    def is_busted(self):
+        return self.hand_total_value() > game.common__MAX_FOR_BUST
+
+    

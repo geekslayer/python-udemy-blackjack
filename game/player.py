@@ -1,5 +1,7 @@
 from game.person import Person
 
+import game.common
+
 class Player(Person):
 
     def __init__(self, name):
