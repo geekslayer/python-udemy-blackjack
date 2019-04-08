@@ -1,6 +1,7 @@
 from random import randint
 from game.deck import Deck, Card
 from game.person import Person
+from game.common import NotEnoughCards
 
 class Dealer(Person):
 
@@ -18,10 +19,20 @@ class Dealer(Person):
         return f"{self.name} (Dealer) : \t" + generic_msg
 
     def shuffle(self):
-        self.deck.shuffle()
+        self.deck.shuffle_deck()
+
+    def has_enough_cards(self):
+        enough = len(self.deck.full_deck) > 6
+
+        return enough
 
     def give_card(self):
-        return self.deck.full_deck.pop(0)
+        has_enough = self.has_enough_cards()
+
+        if has_enough:
+            return self.deck.full_deck.pop(0)
+        else:
+            raise NotEnoughCards("No more cards, need new deck!")
 
     def pay_player(self, amount):
         pass

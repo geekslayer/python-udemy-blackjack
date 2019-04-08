@@ -12,7 +12,7 @@ class Deck():
             for i in range(1, Deck.__amount_of_cards_of_one_suit+1):
                 self.full_deck.append(Card(card_suit, i, i >= 10, self.__get_card_value(i)))
 
-    def shuffle(self):
+    def shuffle_deck(self):
         shuffle(self.full_deck)
 
     @classmethod
