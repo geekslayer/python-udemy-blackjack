@@ -3,8 +3,7 @@
 """
 
 import time
-from game.player import Player
-from game.dealer import Dealer
+from game.person import Player, Dealer
 import game.common
 
 ######################
@@ -77,7 +76,7 @@ GAME_DONE = not DEALER.has_enough_cards()
 while not GAME_DONE:
     try:
         start_hand(PLAYER, DEALER)
-    except game.common.NotEnoughCards as e:
+    except game.common.NotEnoughCards as error:
         print("No more cards!!!")
         GAME_DONE = True
         continue
@@ -89,7 +88,7 @@ while not GAME_DONE:
         if input("Hit or stay? ").upper() in ("HIT", "H"):
             try:
                 PLAYER.get_hand(DEALER.give_card())
-            except game.common.NotEnoughCards as e:
+            except game.common.NotEnoughCards as error:
                 print("No more cards!!!")
                 GAME_DONE = True
                 PLAYER_DONE = True
@@ -121,7 +120,7 @@ while not GAME_DONE:
         if DEALER.hand_total_value() < game.common.__MIN_STAY_FOR_DEALER:
             try:
                 DEALER.get_hand(DEALER.give_card())
-            except game.common.NotEnoughCards as e:
+            except game.common.NotEnoughCards as error:
                 print("No more cards!!!")
                 GAME_DONE = True
                 DEALER_DONE = True
