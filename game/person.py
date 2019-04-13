@@ -2,7 +2,7 @@
     Base class for main objects player and dealer
 """
 from game.deck import Deck
-from game.common import NotEnoughCards
+from game.common import NotEnoughCards, NotEnoughChips
 
 class Person():
     """
@@ -61,9 +61,10 @@ class Player(Person):
     """
         This object basically gets cards and show them
     """
-    def __init__(self, name):
+    def __init__(self, name, starting_bankroll=100):
         Person.__init__(self)
         self.name = name
+        self.bankroll = starting_bankroll
 
     def show_hand(self):
         """
@@ -72,6 +73,22 @@ class Player(Person):
         """
         generic_msg = Person.show_hand(self)
         return f"{self.name} (Player): \t" + generic_msg
+
+    def place_bet(self, bet_amount):
+        """
+            This will place a bet and deduct the bet amount from the bankroll
+        """
+        if bet_amount > self.bankroll:
+            raise NotEnoughChips("No more chips please reload before playing")
+
+        self.bankroll -= bet_amount
+        return bet_amount
+
+    def cash_in(self, amount):
+        """
+            This will take in an amount to add to the bankroll
+        """
+        self.bankroll += amount
 
     def __str__(self):
         return f"Hi! I'm {self.name}"

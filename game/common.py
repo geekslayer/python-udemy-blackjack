@@ -15,4 +15,15 @@ class NotEnoughCards(Exception):
         self.value = value
 
     def __str__(self):
-        return repr(self.value)
+        return self.value
+
+class NotEnoughChips(Exception):
+    """
+        Custom Exception for when there's no more money in the player's bankroll
+    """
+    def __init__(self, value):
+        Exception.__init__(self)
+        self.value = value
+
+    def __str__(self):
+        return self.value
