@@ -84,6 +84,7 @@ print("Let's play blackjack!!!!")
 GAME_DONE = not DEALER.has_enough_cards()
 while not GAME_DONE:
     try:
+        HAND_BET = int(input("Please make your bet! "))
         start_hand(PLAYER, DEALER, HAND_BET)
     except game.common.NotEnoughCards as error:
         print(str(error))
@@ -92,6 +93,12 @@ while not GAME_DONE:
     except game.common.NotEnoughChips as error:
         print(str(error))
         GAME_DONE = True
+        continue
+    except TypeError as type_error:
+        print(str(type_error))
+        continue
+    except Exception as gen_error:
+        print(str(gen_error))
         continue
 
     ### While loop for player's turn
